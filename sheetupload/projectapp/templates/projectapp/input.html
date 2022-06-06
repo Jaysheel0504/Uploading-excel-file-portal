@@ -12,7 +12,7 @@
   <title>Site for Uploading Files</title>
 
   {% load static %}
-  <link rel="stylesheet" href="style.css">
+<!--  <link rel="stylesheet" href="style.css">-->
   <link rel="icon" href="{% static 'projectapp/favicon.ico' %}">
 
 </head>
@@ -56,11 +56,11 @@
 
   <img class="folder" src="{% static 'projectapp/folder.png' %}" alt="">
   <h1> MY ORGANIZATION </h1>
-<img class="back_img" src="{% static 'projectapp/My project.png' %}" alt="">
+  <img class="back_img" src="{% static 'projectapp/My project.png' %}" alt="">
 
   <form id="myForm" method="post" enctype="multipart/form-data">
-
-    Files: <input type="file" id="files" name="files" multiple><br />
+    {% csrf_token %}
+    Files: <input type="file" id="files" name="myfile" multiple><br />
 
     <div id="selectedFiles"></div>
   <br>
