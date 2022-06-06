@@ -5,12 +5,7 @@ from tablib import Dataset
 from .models import Person
 
 
-def export(request):
-    person_resource = PersonResource()
-    dataset = person_resource.export()
-    response = HttpResponse(dataset.xls, content_type='application/vnd.ms-excel')
-    response['Content-Disposition'] = 'attachment; filename="persons.xls"'
-    return response
+
 
 
 def simple_upload(request):
