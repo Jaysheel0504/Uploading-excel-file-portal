@@ -1,17 +1,6 @@
 from django.db import models
 
 # Create your models here.
-class Bank(models.Model):
-    CustomerName = models.CharField(max_length=30)
-    BankName = models.CharField(max_length=30)
-    AccountNumber = models.CharField(max_length=18, primary_key=True)
-    AccountHolderName = models.CharField(max_length=30)
-    IFSCCode = models.CharField(max_length=11)
-    AccountType = models.CharField(max_length=15)
-    BankType = models.CharField(max_length=15)
-    DateCreated = models.DateTimeField(auto_now_add=True)
-    DateModified = models.DateTimeField(auto_now=True)
-
 class Customer(models.Model):
     CustomerId = models.CharField(max_length=30, primary_key=True)
     EnterpriseName = models.CharField(max_length=50)
@@ -39,9 +28,23 @@ class Customer(models.Model):
     UpdatedDate = models.DateField(auto_now=True)
     VerifiedCustomer = models.CharField(max_length=20)
 
+class Bank(models.Model):
+    CustomerId = models.ForeignKey(Customer, on_delete=models.CASCADE)
+    CustomerName = models.CharField(max_length=50)
+    BankName = models.CharField(max_length=30)
+    AccountNumber = models.CharField(max_length=18, primary_key=True)
+    AccountHolderName = models.CharField(max_length=30)
+    IFSCCode = models.CharField(max_length=11)
+    AccountType = models.CharField(max_length=15)
+    BankType = models.CharField(max_length=15)
+    DateCreated = models.DateTimeField(auto_now_add=True)
+    DateModified = models.DateTimeField(auto_now=True)
+
+
 class Transaction(models.Model):
+    CustomerId = models.ForeignKey(Customer, on_delete=models.CASCADE)
+    AccountNumber = models.ForeignKey(Bank, on_delete=models.CASCADE)
     LoyaltyTransaction = models.CharField(max_length=30, primary_key=True)
-    CustomerId = models.CharField(max_length=30)
     TransactionType = models.CharField(max_length=20)
     LoyaltyPoints = models.IntegerField()
     TransactionStatus = models.CharField(max_length=10)
@@ -52,8 +55,8 @@ class Transaction(models.Model):
     TransactionTime = models.DateTimeField(auto_now_add=True)    
 
 class Digisol(models.Model):
-    RedemptionID = models.CharField(max_length=30, primary_key=True)
-    CustomerId = models.CharField(max_length=30)
+    RedemptionID = models.CharField(max_length=30, primary_key=True) #Generate using Hash Functions
+    CustomerId = models.ForeignKey(Customer, on_delete=models.CASCADE)
     PartnerName = models.CharField(max_length=50)
     CompanyName = models.CharField(max_length=50)
     PANNumber = models.CharField(max_length=10)
@@ -65,7 +68,7 @@ class Digisol(models.Model):
     ConversionRate = models.CharField(max_length=10)
     RedemptionValue = models.FloatField()
     BankName = models.CharField(max_length=30)
-    AccountNumber = models.CharField(max_length=18)
+    AccountNumber = models.ForeignKey(Bank, on_delete=models.CASCADE)
     AccountType = models.CharField(max_length=20)
     IFSCCode = models.CharField(max_length=11)
-    RedemptionTarger = models.FloatField()
+    RedemptionTarget = models.FloatField()
