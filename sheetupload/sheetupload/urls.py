@@ -15,10 +15,3 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from projectapp import views
-
-urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('export/', views.export),
-    path('', views.simple_upload),
-]

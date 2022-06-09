@@ -1,8 +1,8 @@
 from django.contrib import admin
 from import_export.admin import ImportExportModelAdmin
-from .models import Person
+from .models import Bank
+from .models import Customer
+from .models import Transaction
+
 # Register your models here.
 
-@admin.register(Person)
-class PersonAdmin(ImportExportModelAdmin):
-    list_display = ('name', 'role', 'campus')
